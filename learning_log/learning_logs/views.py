@@ -6,7 +6,7 @@ def index(request):
     """A página inicial de Learning Log"""
     return render(request, 'learning_logs/index.html')
 
-def topics(request, topic_id):
+def topics(request):
     """Mostra todos os assuntos e todas as suas entradas"""
     topics = Topic.objects.order_by('date_added')
     context = {
