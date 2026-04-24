@@ -10,5 +10,8 @@
             {% empty %}
             <li> There are no entries for this topic yet.</li>
         {% endfor %}
+        <p>Topic: {{ topic }}</p>
+        <p>Entries:</p> 
+        <p>Entries:</p> <p> <a href="{% url 'learning_logs:new_entry' topic.id %}">add new entry</a> </p>
     </ul>
 {% endblock content %}
