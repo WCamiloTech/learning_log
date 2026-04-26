@@ -5,6 +5,7 @@
         <a href="{% url 'learning_logs:topics' %}">Topics</a>
     </p>
     Hello, {{ user.username }}.
+    <a href="{% url "users:logout" %}">logout</a>
 {% else %}
     <a href="{% url 'users:login' %}">log in</a>
 {% endif %}
