@@ -3,12 +3,14 @@ from .models import Topic, Entry
 from django.http import HttpResponseRedirect
 from django.urls import reverse
 from .forms import TopicForm, EntryForm
+from django.contrib.auth.decorators import login_required
 
 # Create your views here.
 def index(request):
     """A página inicial de Learning Log"""
     return render(request, 'learning_logs/index.html')
 
+@login_required
 def topics(request):
     """Mostra todos os assuntos e todas as suas entradas"""
     topics = Topic.objects.order_by('date_added')
