@@ -1,9 +1,10 @@
 from django.shortcuts import render, redirect
 from .models import Topic, Entry
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, Http404
 from django.urls import reverse
 from .forms import TopicForm, EntryForm
 from django.contrib.auth.decorators import login_required
+
 
 # Create your views here.
 def index(request):
@@ -13,9 +14,9 @@ def index(request):
 @login_required
 def topics(request):
     """Mostra todos os assuntos e todas as suas entradas"""
-    Topic.objects.filter(owner=request.user).order_by('date_added')
+    user_topics = Topic.objects.filter(owner=request.user).order_by('date_added')
     context = {
-        'topics': topics,
+        'topics': user_topics,
     }
     return render(request, 'learning_logs/topics.html', context)
 
@@ -23,6 +24,9 @@ def topics(request):
 def topic(request, topic_id):
     """Mostra um único assunto e todas as suas entradas."""
     topic = Topic.objects.get(id=topic_id)
+    # Garante que o assunto pertence ao usuário atual
+    if topic.owner != request.user:
+        raise Http404
     entries = topic.entry_set.order_by('-date_added')
     context = {
         'topic': topic,
@@ -40,6 +44,8 @@ def new_topic(request):
         # Dados de POST submetidos; processa os dados
         form = TopicForm(request.POST)
         if form.is_valid():
+            new_topic = form.save(commit=False)
+            new_topic.owner = request.user
             form.save()
             return redirect('learning_logs:topics')
     
@@ -70,6 +76,8 @@ def edit_entry(request, entry_id):
     """Edita uma entrada existente."""
     entry = Entry.objects.get(id=entry_id)
     topic = entry.topic
+    if topic.owner != request.user:
+        raise Http404
     if request.method != "POST":
         #Requisição inicial; preenche previamente o formulário com a entrada atual
         form = EntryForm(instance=entry)
