@@ -13,7 +13,7 @@ def index(request):
 @login_required
 def topics(request):
     """Mostra todos os assuntos e todas as suas entradas"""
-    topics = Topic.objects.order_by('date_added')
+    Topic.objects.filter(owner=request.user).order_by('date_added')
     context = {
         'topics': topics,
     }
