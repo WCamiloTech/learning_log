@@ -1,17 +1,15 @@
+{% load django_bootstrap5 %}
 
-{% if user.is_authenticated %}
-    <P>
-        <a href="{% url 'learning_logs:index' %}">Learning Log</a> - 
-        <a href="{% url 'learning_logs:topics' %}">Topics</a>
-    </p>
-    Hello, {{ user.username }}.
-    <a href="{% url "users:logout" %}">logout</a>
-{% else %}
-    <a href="{% url 'learning_logs:index' %}">Learning Log</a> - 
-    <a href="{% url 'learning_logs:topics' %}">Topics</a>    
-    <a href="{% url "users:register" %}">register</a>    
-    <a href="{% url 'users:login' %}">log in</a>
-{% endif %}
-
-{% block content %}
-{% endblock content %}
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Learning Log</title>
+    {% bootstrap_css %}
+</head>
+<body>
+    
+    {% bootstrap_javascript %}
+</body>
+</html>

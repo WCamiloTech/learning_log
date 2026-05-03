@@ -38,7 +38,7 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     # Aplicação de terceiros
-    "bootstrap5",
+    "django_bootstrap5",
     # Minhas aplicações
     "learning_logs",
     "users",
@@ -124,6 +124,6 @@ STATIC_URL = "static/"
 # Minhas configurações
 LOGIN_URL = 'users:login'
 
-# Configurações para django-bootstrap3
-BOOTSTRAP5 = {
-'include_jquery': True, }
+# Configurações para django-bootstrap5
+# BOOTSTRAP5 = {
+# 'include_jquery': True, }
