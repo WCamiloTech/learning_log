@@ -9,6 +9,23 @@
     {% bootstrap_css %}
 </head>
 <body>
+    <nav class="navbar navbar-expand-md navbar-dark bg-dark mb-4">
+        <!-- Deixei a nav preparada para você preencher os links depois -->
+    </nav>
+
+    <div class="container">
+        <!-- No Bootstrap 5, o .page-header foi substituído por utilitários de borda -->
+        <div class="pb-2 mb-4 border-bottom">
+            {% block header %}
+            
+            {% endblock header %}            
+        </div>
+
+        <div>
+            {% block content %}
+            {% endblock content %}
+        </div>
+    </div> <!-- /container -->
     
     {% bootstrap_javascript %}
 </body>
